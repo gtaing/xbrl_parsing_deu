@@ -118,9 +118,9 @@ def compute_real_value(data):
     data['real_value'] = data['real_value'].replace('‐', 0)
     data['real_value'] = data['real_value'].replace('-', 0)
 
-    data['real_value'] = data['real_value'].astype('float')
+    #data['real_value'] = data['real_value'].astype('float')
 
-    data['real_value'] = (10 ** data['scale'].astype(int)) * data['real_value']
+    #data['real_value'] = (10 ** data['scale'].astype(int)) * data['real_value']
 
     return data
 
