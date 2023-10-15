@@ -15,7 +15,7 @@ def parse_xhtml_doc(file):
             soup = BeautifulSoup(fp, 'html.parser')
 
         parsed_content = pd.DataFrame(process_deu(soup)['numerical_variables'])
-        parsed_content['origin'] = file
+        parsed_content['origin'] = f"{os.path.split(file)[-1]}"
     except UnicodeDecodeError as error:
         print(error)
         parsed_content = pd.DataFrame()
@@ -40,7 +40,6 @@ if __name__ == "__main__":
     # Write each dataframe to a different worksheet.
     for doc in parsed_docs:
         sheet_name = doc['origin'].iloc[0]
-        sheet_name = sheet_name.split('\\')[-1]
         sheet_name = sheet_name[:31] if len(sheet_name) > 32 else sheet_name
         print(sheet_name)
         doc.to_excel(writer, sheet_name=sheet_name, index=False)

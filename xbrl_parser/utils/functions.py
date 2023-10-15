@@ -69,7 +69,7 @@ def flatten_dimensions(contexts):
     :param contexts:
     :return:
     """
-    return pd.concat([contexts, contexts['dimensions'].apply(pd.Series)], axis=1)
+    return pd.concat([contexts, contexts['dimensions'].apply(lambda x: pd.Series(x, dtype='object'))], axis=1)
 
 
 def parse_numerical_variables(soup):
@@ -82,6 +82,10 @@ def parse_numerical_variables(soup):
     parsed_ix_nonfraction = []
 
     for tag in ix_nonfraction:
+        # sometimes we don't have a format for a numeric fact
+        if "format" not in tag.attrs:
+            tag['format'] = "UNDEFINED"
+
         parsed_tag = {
             "ID": tag["contextref"],
             "decimals": tag["decimals"],
