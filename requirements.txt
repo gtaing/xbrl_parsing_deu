@@ -3,3 +3,5 @@ bs4
 xlrd
 xlsxwriter
 requests
+openai==0.28
+PyPDF2
